@@ -17,6 +17,8 @@
 
 #pragma once
 
+// mod tap speedup
+#define HOLD_ON_OTHER_KEY_PRESS
 
 /*
  * Key matrix pins
