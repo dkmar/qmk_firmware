@@ -17,8 +17,26 @@
 
 #pragma once
 
-// mod tap speedup
+/* mod tap speedups
+Ok so we can do a few things:
+- tapping term config per key and go low
+- tap_delay to work with rcmd? no cause rcmd depends on press not release
+
+we need to send hyper as fast as possible so rcmd can listen for key press.
+i dont think it's right for us to try and delay the key press here. just message alin about QoS or something.
+Or echo the presses in userspaces to add delay. Our only goal in qmk is to minimize the hyper holding action latency.
+
+We could use one shot to allow releasing caps before the key, but we should just get better at typing firmly. */
+// tapping term timeout. on timeout the Hold action is ultimately chosen
+#define TAPPING_TERM 200
+#define TAPPING_TERM_PER_KEY
+// early Hold from mod tap if another key is pressed. permissive for fallback cause i swear this one doesnt work
 #define HOLD_ON_OTHER_KEY_PRESS
+#define PERMISSIVE_HOLD
+// Enable rapid switch from tap to hold, disables double tap hold auto-repeat. afaict it disables autorepeat so lets do per key?
+// unclear to me but if we dont set this then a misfire tap followed by immediate hold of our caps might force tap (escape) behavior
+#define QUICK_TAP_TERM 200
+#define QUICK_TAP_TERM_PER_KEY
 
 /*
  * Key matrix pins
