@@ -33,10 +33,8 @@ We could use one shot to allow releasing caps before the key, but we should just
 // early Hold from mod tap if another key is pressed. permissive for fallback cause i swear this one doesnt work
 #define HOLD_ON_OTHER_KEY_PRESS
 #define PERMISSIVE_HOLD
-// Enable rapid switch from tap to hold, disables double tap hold auto-repeat. afaict it disables autorepeat so lets do per key?
-// unclear to me but if we dont set this then a misfire tap followed by immediate hold of our caps might force tap (escape) behavior
-#define QUICK_TAP_TERM 200
-#define QUICK_TAP_TERM_PER_KEY
+// Retro tap experiment to see if we can lower the hyper tap term any further
+#define RETRO_TAPPING_PER_KEY
 
 /*
  * Key matrix pins

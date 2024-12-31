@@ -84,17 +84,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case HYPR_T(KC_ESC):
-            return TAPPING_TERM - 125;
+            return 0;
         default:
             return TAPPING_TERM;
     }
 }
 
-uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case HYPR_T(KC_ESC):
-            return 0;
-        default:
-            return QUICK_TAP_TERM;
-    }
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    return keycode == HYPR_T(KC_ESC);
 }
