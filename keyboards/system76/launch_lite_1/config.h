@@ -31,8 +31,8 @@ We could use one shot to allow releasing caps before the key, but we should just
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 // early Hold from mod tap if another key is pressed. permissive for fallback cause i swear this one doesnt work
-#define HOLD_ON_OTHER_KEY_PRESS
-#define PERMISSIVE_HOLD
+// #define HOLD_ON_OTHER_KEY_PRESS
+// #define PERMISSIVE_HOLD
 // Retro tap experiment to see if we can lower the hyper tap term any further
 #define RETRO_TAPPING_PER_KEY
 

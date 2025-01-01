@@ -26,7 +26,9 @@ make -r system76/launch_lite_1:default
 Equivalently, using the QMK CLI:
 
 ```bash
-qmk compile -kb system76/launch_lite_1 -km default
+qmk compile -kb system76/launch_lite_1 -km dkmar
+# i have to add a couple guys to path manually:
+PATH="/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:$PATH" qmk compile -kb system76/launch_lite_1 -km dkmar
 ```
 
 ## Flashing Firmware (DFU)
@@ -40,7 +42,8 @@ make -r system76/launch_lite_1:default:flash
 Equivalently, using the QMK CLI:
 
 ```bash
-qmk flash -kb system76/launch_lite_1 -km default
+qmk flash -kb system76/launch_lite_1 -km dkmar
+PATH="/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:$PATH" qmk flash -kb system76/launch_lite_1 -km dkmar
 ```
 
 ## Flashing Firmware (ISP)
