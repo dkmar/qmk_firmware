@@ -83,7 +83,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // tapping term timeout
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case HYPR_T(KC_ESC):
+        case LCAG_T(KC_ESC):
+        case LT(1, KC_SPC):
             return 0;
         default:
             return TAPPING_TERM;
@@ -91,5 +92,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
 }
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    return keycode == HYPR_T(KC_ESC);
+    switch (keycode) {
+        case LCAG_T(KC_ESC):
+        case LT(1, KC_SPC):
+            return true;
+        default:
+            return false;
+    }
 }
