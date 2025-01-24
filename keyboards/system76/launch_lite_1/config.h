@@ -36,6 +36,10 @@ We could use one shot to allow releasing caps before the key, but we should just
 // Retro tap experiment to see if we can lower the hyper tap term any further
 #define RETRO_TAPPING_PER_KEY
 
+#define ONESHOT_TAP_TOGGLE 5
+#define ONESHOT_TIMEOUT 2500
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
 /*
  * Key matrix pins
  * ROWS: AVR pins used for rows, top to bottom

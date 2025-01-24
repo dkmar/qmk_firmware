@@ -45,6 +45,8 @@ Equivalently, using the QMK CLI:
 qmk flash -kb system76/launch_lite_1 -km dkmar
 PATH="/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:$PATH" qmk flash -kb system76/launch_lite_1 -km dkmar
 ```
+OR my fish function:
+`qmk-push`
 
 ## Flashing Firmware (ISP)
 

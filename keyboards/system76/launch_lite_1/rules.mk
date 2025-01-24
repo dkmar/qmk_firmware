@@ -4,6 +4,10 @@ F_CPU = 8000000
 # External oscillator is 16 MHz
 F_USB = 16000000
 
+# features
+TAP_DANCE_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+
 # Build options
 #   change yes to no to disable
 BOOTMAGIC_ENABLE = no       # Bootmagic Lite
