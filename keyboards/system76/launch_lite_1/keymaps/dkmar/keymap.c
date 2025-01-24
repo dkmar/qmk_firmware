@@ -140,14 +140,14 @@ void lsft_each(tap_dance_state_t *state, void *user_data) {
             register_code(KC_LSFT);
             break;
         case 2:
-            // idk why but unregistering here instead of in TD_DOUBLE_TAP finished
-            // is necessary for my double taps to send correctly idk.
+            // idk why but unregistering here instead of in TD_DOUBLE_TAP's finish
+            // is necessary for double taps to send correctly idk.
             unregister_code(KC_LSFT);
             break;
     }
 }
 
-// Function to handle finished tapsWwWWwwwqs
+// Function to handle finished taps
 void lsft_finished(tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
