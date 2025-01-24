@@ -153,6 +153,7 @@ void lsft_finished(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case TD_SINGLE_TAP:
             // Send one-shot Shift on single tap
+            // first unregister the shift from the initial tap
             unregister_code(KC_LSFT);
             // separate the ensuing osm shift from the one we just unregistered so it's not shift-shift
             tap_code(KC_NO);
@@ -164,7 +165,7 @@ void lsft_finished(tap_dance_state_t *state, void *user_data) {
             break;
         case TD_DOUBLE_TAP:
             // Double tap: send shift twice
-            // we closed the first shift in lsft_each and now we just send a second
+            // we closed the initial shift in lsft_each and now we just send a second
             tap_code(KC_LSFT);
             break;
         default:
@@ -174,7 +175,6 @@ void lsft_finished(tap_dance_state_t *state, void *user_data) {
 
 // Reset function to unregister on release
 void lsft_reset(tap_dance_state_t *state, void *user_data) {
-    // unregister_code(KC_LSFT)
     switch (td_state) {
         case TD_SINGLE_HOLD:
             // Release shift on key up
