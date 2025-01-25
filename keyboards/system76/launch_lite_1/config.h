@@ -17,6 +17,9 @@
 
 #pragma once
 
+// can we sleep the kb lights?
+#define RGBLIGHT_SLEEP
+
 /* mod tap speedups
 Ok so we can do a few things:
 - tapping term config per key and go low
@@ -35,7 +38,7 @@ We could use one shot to allow releasing caps before the key, but we should just
 // #define PERMISSIVE_HOLD
 // Retro tap experiment to see if we can lower the hyper tap term any further
 #define RETRO_TAPPING_PER_KEY
-
+// -----------------------------------------------
 #define ONESHOT_TAP_TOGGLE 5
 #define ONESHOT_TIMEOUT 2500
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
