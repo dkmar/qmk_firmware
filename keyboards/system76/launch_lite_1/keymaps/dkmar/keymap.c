@@ -169,6 +169,9 @@ void lsft_finished(tap_dance_state_t *state, void *user_data) {
             tap_code(KC_LSFT);
             break;
         default:
+            // insurance. just reset everything if tapped more than twice
+            clear_oneshot_mods();
+            caps_word_off();
             break;
     }
 }
