@@ -62,31 +62,16 @@ We could use one shot to allow releasing caps before the key, but we should just
 #ifdef RGB_MATRIX_ENABLE
 #    define WS2812_DI_PIN F7
 #    define RGB_MATRIX_LED_COUNT 70
-#    define RGB_MATRIX_KEYPRESSES                                      // Reacts to keypresses
-// #    define RGB_MATRIX_KEYRELEASES                                     // Reacts to keyreleases (instead of keypresses)
-// #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS                             // Enables framebuffer effects
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED                             // Turns off effects when suspended
-// Limit brightness to support USB-A at 0.5 A
-// TODO: Do this dynamically based on power source
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176                          // Limits maximum brightness of LEDs to 176 out of 255. If not defined, maximum brightness is set to 255
-#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
-#    define RGB_MATRIX_DEFAULT_HUE 142                                 // Sets the default hue value, if none has been set
-#    define RGB_MATRIX_DEFAULT_SAT 255                                 // Sets the default saturation value, if none has been set
-#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
-#    define RGB_MATRIX_DEFAULT_SPD 127                                 // Sets the default animation speed, if none has been set
-#    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
-
-#    define ENABLE_RGB_MATRIX_CYCLE_ALL
-#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#    define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#    define ENABLE_RGB_MATRIX_RAINDROPS
-#    define ENABLE_RGB_MATRIX_SPLASH
-#    define ENABLE_RGB_MATRIX_MULTISPLASH
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176              // Limit max brightness (keep for safety)
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR // Start with solid color mode
+#    define RGB_MATRIX_DEFAULT_HUE 212                     // Set your preferred color (142 is greenish)
+#    define RGB_MATRIX_DEFAULT_SAT 30
+#    define RGB_MATRIX_DEFAULT_VAL 100
+#    define RGB_MATRIX_DEFAULT_SPD 127
+#    define RGB_MATRIX_DISABLE_ALL_EFFECTS                 // Disable ALL built-in RGB animations
+#    define DISABLE_RGB_MATRIX_ANIMATIONS
+#    define RGB_MATRIX_DISABLE_KEYCODES                    // Disables keycodes for changing matrix (only allow via code)
 #endif  // RGB_MATRIX_ENABLE
 
 // Mechanical locking support; use KC_LCAP, KC_LNUM, or KC_LSCR instead in keymap

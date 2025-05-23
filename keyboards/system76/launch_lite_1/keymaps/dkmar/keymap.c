@@ -146,7 +146,11 @@ void lsft_each(tap_dance_state_t *state, void *user_data) {
         case 2:
             // idk why but unregistering here instead of in TD_DOUBLE_TAP's finish
             // is necessary for double taps to send correctly idk.
+            // do the cmd+shift+space here and exit early to eliminate latency
+            tap_code16(LGUI(KC_SPC));
             unregister_code(KC_LSFT);
+            // skip the finished handler
+            // reset_tap_dance(state);
             break;
     }
 }
@@ -172,7 +176,7 @@ void lsft_finished(tap_dance_state_t *state, void *user_data) {
             // we closed the initial shift in lsft_each and now we just send a second
             // tap_code(KC_LSFT);
             // ok actually we're gonna hardcode map this to cmd+shift+space for the ghostty quick terminal
-            tap_code16(LSFT(LGUI(KC_SPC)));
+            //// tap_code16(LSFT(LGUI(KC_SPC))); nvm lets do this in lsft_each
             break;
         default:
             // insurance. just reset everything if tapped more than twice
