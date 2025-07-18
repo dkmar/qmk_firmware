@@ -77,7 +77,7 @@ ________________________________________________________________________________
         KC_PSCR, S(KC_1),    S(KC_2),    S(KC_3),    S(KC_4),    S(KC_5),    S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9),    S(KC_0),    S(KC_MINS), S(KC_EQL), RGB_TOG, KC_VOLU,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_DOLLAR, KC_LEFT_PAREN, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_GRAVE,    KC_TRNS,     KC_VOLD,
               SC_LSPO, KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_DOLLAR,  KC_PGUP, KC_MUTE,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,           KC_BSPC,       KC_TRNS, KC_TRNS, TG(1),       KC_HOME,  KC_PGDN, KC_END
+          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_MEDIA_PLAY_PAUSE, KC_BSPC,       KC_TRNS, KC_TRNS, TG(1),       KC_HOME,  KC_PGDN, KC_END
   ),
 
 
