@@ -76,7 +76,7 @@ ________________________________________________________________________________
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  KC_PGUP,
           LCAG_T(KC_ESC),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  KC_ENT,       KC_PGDN,
           TD(TD_LSFT),     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT,    KC_UP, KC_END,
-          OSM(MOD_LGUI), KC_LCTL,   KC_LALT, KC_LGUI,    KC_SPC,  LT(2, KC_SPC),    OSM(MOD_RGUI),    KC_RALT,   KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
+          OSM(MOD_LGUI), KC_LCTL,   KC_LALT, KC_LGUI,    KC_SPC,  OSL(2),    OSM(MOD_RGUI),    KC_RALT,   KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
 
@@ -142,7 +142,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCAG_T(KC_ESC):
-        case LT(2, KC_SPC):
         case OSL(2):
             return 0;
         default:
@@ -154,7 +153,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCAG_T(KC_ESC):
-        case LT(2, KC_SPC):
         case OSL(2):
             return true;
         default:
