@@ -13,6 +13,21 @@ void       lsft_each(tap_dance_state_t *state, void *user_data);
 void       lsft_finished(tap_dance_state_t *state, void *user_data);
 void       lsft_reset(tap_dance_state_t *state, void *user_data);
 
+// sticky HJKL arrow keys
+// If we are on layer 2 and hit HJKL then we persist their arrow key behavior until other key is used
+enum custom_keycodes {
+    NAV_H = SAFE_RANGE,
+    NAV_J,
+    NAV_K,
+    NAV_L
+};
+
+// layers
+enum {
+    _BASE = 0,
+    _FN = 2,
+    _NAV = 3
+};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Layer 0, default layer
@@ -33,14 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |    LGUI    |  CTRL  | LALT  | LGUI   |    SPACE        |   BACKSPACE     |  ESC   |  RALT  |     FN      |   |  LEFT  |  DOWN  | RIGHT  |
     |____________|________|_______|________|_________________|_________________|________|________|_____________|   |________|________|________|
   */
-
-  [0] = LAYOUT(
-    KC_GRAVE,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,      KC_HOME,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  KC_PGUP,
-          LCAG_T(KC_ESC),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,    KC_ENT,       KC_PGDN,
-          TD(TD_LSFT),     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT,    KC_UP, KC_END,
-          OSM(MOD_LGUI), KC_LCTL,   KC_LALT, KC_LGUI,     KC_SPC,           LT(2, KC_SPC),    OSM(MOD_RGUI),    KC_RALT,   KC_RCTL,         KC_LEFT, KC_DOWN, KC_RGHT
-  ),
 
     /* Layer 1, function layer
 ____________________________________________________________________________________________________________________________________________
@@ -64,6 +71,15 @@ ________________________________________________________________________________
 *        and plug it back in.
 */
 
+  [_BASE] = LAYOUT(
+    KC_GRAVE,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,      KC_HOME,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  KC_PGUP,
+          LCAG_T(KC_ESC),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  KC_ENT,       KC_PGDN,
+          TD(TD_LSFT),     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT,    KC_UP, KC_END,
+          OSM(MOD_LGUI), KC_LCTL,   KC_LALT, KC_LGUI,    KC_SPC,  LT(2, KC_SPC),    OSM(MOD_RGUI),    KC_RALT,   KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
+  ),
+
+
   [1] = LAYOUT(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -72,25 +88,53 @@ ________________________________________________________________________________
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,          OSL(2),      KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS
   ),
 
-  [2] = LAYOUT(
+  [_FN] = LAYOUT(
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,      QK_BOOT,
         KC_PSCR, S(KC_1),    S(KC_2),    S(KC_3),    S(KC_4),    S(KC_5),    S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9),    S(KC_0),    S(KC_MINS), S(KC_EQL), RGB_TOG, KC_VOLU,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_DOLLAR, KC_LEFT_PAREN, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_GRAVE,    KC_TRNS,     KC_VOLD,
+          KC_TRNS, KC_TRNS, KC_TRNS, KC_DOLLAR, KC_LEFT_PAREN, KC_TRNS, NAV_H, NAV_J, NAV_K, NAV_L, KC_TRNS, KC_GRAVE,    KC_TRNS,     KC_VOLD,
               SC_LSPO, KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_DOLLAR,  KC_PGUP, KC_MUTE,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_MEDIA_PLAY_PAUSE, KC_BSPC,       KC_TRNS, KC_TRNS, TG(1),       KC_HOME,  KC_PGDN, KC_END
   ),
 
-
-  [3] = LAYOUT(
+  // NAV layer
+  [_NAV] = LAYOUT(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,
+          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,   KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,
               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,          KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS
   ),
 };
 
+static inline bool is_arrow(uint16_t kc) {
+    return kc == KC_LEFT || kc == KC_DOWN || kc == KC_UP || kc == KC_RGHT;
+}
+static inline bool is_basic_mod(uint16_t kc) {
+    return kc == KC_LCTL || kc == KC_RCTL ||
+           kc == KC_LSFT || kc == KC_RSFT ||
+           kc == KC_LALT || kc == KC_RALT ||
+           kc == KC_LGUI || kc == KC_RGUI || kc == TD(TD_LSFT);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) return true;
+
+    // special handle NAV layer
+    if (IS_LAYER_ON(_NAV)) {
+        // disable layer if key isn't an arrow (/hjkl) or modifier
+        if (!is_arrow(keycode) && !is_basic_mod(keycode)) {
+            layer_off(_NAV);
+        }
+        return true;
+    }
+    // activate NAV?
+    switch (keycode) {
+        case NAV_H: layer_on(_NAV); tap_code(KC_LEFT); return false;
+        case NAV_J: layer_on(_NAV); tap_code(KC_DOWN); return false;
+        case NAV_K: layer_on(_NAV); tap_code(KC_UP); return false;
+        case NAV_L: layer_on(_NAV); tap_code(KC_RGHT); return false;
+    }
+
     return true;
 }
 
