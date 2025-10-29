@@ -76,7 +76,7 @@ ________________________________________________________________________________
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,  KC_PGUP,
           LCAG_T(KC_ESC),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,  KC_ENT,       KC_PGDN,
           TD(TD_LSFT),     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT,    KC_UP, KC_END,
-          OSM(MOD_LGUI), KC_LCTL,   KC_LALT, KC_LGUI,    KC_SPC,  OSL(2),    OSM(MOD_RGUI),    KC_RALT,   KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
+          OSM(KC_LCTL), KC_LCTL,   KC_LALT, KC_LGUI,    KC_SPC,  OSL(2),    OSM(MOD_RGUI),    KC_RALT,   KC_RCTL,  KC_LEFT, KC_DOWN, KC_RGHT
   ),
 
 
@@ -92,7 +92,7 @@ ________________________________________________________________________________
     KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,      QK_BOOT,
         KC_PSCR, S(KC_1),    S(KC_2),    S(KC_3),    S(KC_4),    S(KC_5),    S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9),    S(KC_0),    S(KC_MINS), S(KC_EQL), RGB_TOG, KC_VOLU,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_DOLLAR, KC_LEFT_PAREN, KC_TRNS, NAV_H, NAV_J, NAV_K, NAV_L, KC_TRNS, KC_GRAVE,    KC_TRNS,     KC_VOLD,
-              SC_LSPO, KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_DOLLAR,  KC_PGUP, KC_MUTE,
+          SC_LSPO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_DOLLAR,  KC_PGUP, KC_MUTE,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_MEDIA_PLAY_PAUSE, KC_BSPC,       KC_TRNS, KC_TRNS, TG(1),       KC_HOME,  KC_PGDN, KC_END
   ),
 
@@ -102,18 +102,25 @@ ________________________________________________________________________________
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,   KC_TRNS, KC_TRNS,    KC_TRNS,     KC_TRNS,
               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,
-          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,          KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS
+          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,   KC_MEDIA_PLAY_PAUSE,      KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS
   ),
 };
 
-static inline bool is_arrow(uint16_t kc) {
-    return kc == KC_LEFT || kc == KC_DOWN || kc == KC_UP || kc == KC_RGHT;
-}
-static inline bool is_basic_mod(uint16_t kc) {
-    return kc == KC_LCTL || kc == KC_RCTL ||
-           kc == KC_LSFT || kc == KC_RSFT ||
-           kc == KC_LALT || kc == KC_RALT ||
-           kc == KC_LGUI || kc == KC_RGUI || kc == TD(TD_LSFT);
+static inline bool is_NAV_key(uint16_t kc) {
+    switch (kc) {
+        // Arrow keys
+        case KC_LEFT: case KC_DOWN: case KC_UP: case KC_RGHT:
+        // Spacebar play/pausing key
+        case KC_MEDIA_PLAY_PAUSE:
+        // Basic modifiers
+        case KC_LCTL: case KC_RCTL:
+        case KC_LSFT: case KC_RSFT: case TD(TD_LSFT):
+        case KC_LALT: case KC_RALT:
+        case KC_LGUI: case KC_RGUI:
+            return true;
+        default:
+            return false;
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -122,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // special handle NAV layer
     if (IS_LAYER_ON(_NAV)) {
         // disable layer if key isn't an arrow (/hjkl) or modifier
-        if (!is_arrow(keycode) && !is_basic_mod(keycode)) {
+        if (!is_NAV_key(keycode)) {
             layer_off(_NAV);
         }
         return true;
