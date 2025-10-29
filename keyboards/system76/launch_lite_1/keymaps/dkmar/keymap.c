@@ -138,7 +138,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NAV_H: layer_on(_NAV); tap_code(KC_LEFT); return false;
         case NAV_J: layer_on(_NAV); tap_code(KC_DOWN); return false;
-        case NAV_K: layer_on(_NAV); tap_code(KC_UP); return false;
+        case NAV_K: layer_on(_NAV); tap_code(KC_UP);   return false;
         case NAV_L: layer_on(_NAV); tap_code(KC_RGHT); return false;
     }
 
@@ -151,6 +151,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LCAG_T(KC_ESC):
         case OSL(2):
             return 0;
+        case OSM(MOD_LCTL): case OSM(MOD_RGUI):
+            return 150;
         default:
             return TAPPING_TERM;
     }
@@ -166,6 +168,10 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+// ============================================================================
+// TAP DANCE
+// ============================================================================
 
 // tap dance
 static td_state_t td_state;
